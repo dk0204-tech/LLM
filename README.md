@@ -1,8 +1,6 @@
 # DK — Language Model from Scratch
 
-A decoder-only transformer language model built entirely from scratch in PyTorch.
-No wrapper libraries. Every component is written explicitly — tokenizer, attention,
-feed-forward network, training loop, and generation.
+A decoder-only transformer language model built entirely from scratch in PyTorch. No wrapper libraries. Every component is written explicitly — tokenizer, attention, feed-forward network, training loop, and generation.
 
 **Author:** Puneeth Ram  
 **Architecture:** Decoder-only transformer (GPT-style)  
@@ -12,27 +10,22 @@ feed-forward network, training loop, and generation.
 
 ## What This Is
 
-DK is a research implementation of a modern language model, designed to be read
-and understood as much as it is run. The architecture follows conventions established
-by LLaMA and Mistral: RoPE positional encodings, RMSNorm, SwiGLU activation, and
-pre-norm placement throughout. Each design choice is explained inline in the notebook.
+DK is a research implementation of a modern language model, designed to be read and understood as much as it is run. The architecture follows conventions established by LLaMA and Mistral: RoPE positional encodings, RMSNorm, SwiGLU activation, and pre-norm placement throughout. Each design choice is explained inline in the notebook.
 
-The default configuration targets roughly 10 million parameters — small enough to
-train on a laptop GPU in under an hour, large enough to produce coherent text on a
-simple corpus.
+The default configuration targets roughly 10 million parameters — small enough to train on a laptop GPU in under an hour, large enough to produce coherent text on a simple corpus.
 
 ---
 
 ## Architecture
 
-| Component | Choice | Why |
-|---|---|---|
-| Position encoding | RoPE (Rotary) | Relative distances, better length generalization |
-| Normalization | RMSNorm | Same quality as LayerNorm, ~10% faster |
-| Norm placement | Pre-norm | More stable training at depth |
-| FFN activation | SwiGLU | More expressive than ReLU at equal parameter count |
-| Biases | None | No measurable quality gain, removed for efficiency |
-| Weight tying | Embedding = LM head | Halves that matrix's parameters, improves perplexity |
+| Component         | Choice       | Why                                                                 |
+|-------------------|--------------|---------------------------------------------------------------------|
+| Position encoding | RoPE (Rotary)| Relative distances, better length generalization                   |
+| Normalization     | RMSNorm      | Same quality as LayerNorm, ~10% faster                             |
+| Norm placement    | Pre-norm     | More stable training at depth                                      |
+| FFN activation    | SwiGLU       | More expressive than ReLU at equal parameter count                 |
+| Biases            | None         | No measurable quality gain, removed for efficiency                 |
+| Weight tying      | Embedding = LM head | Halves that matrix's parameters, improves perplexity          |
 
 ---
 
@@ -93,8 +86,7 @@ Or use any plain text file. Point `cfg.data_path` at it.
 
 ### 3. Run the notebook
 
-Open `DK_LLM.ipynb` and run all cells from top to bottom.
-Training starts automatically after the optimizer is configured.
+Open `DK_LLM.ipynb` and run all cells from top to bottom. Training starts automatically after the optimizer is configured.
 
 ---
 
@@ -129,12 +121,12 @@ print(output)
 
 **Temperature guide:**
 
-| Value | Character |
-|---|---|
-| 0.5 | Focused, repetitive, safe |
-| 0.8 | Balanced — good default |
-| 1.0 | Full distribution, varied |
-| 1.2+ | Creative, occasionally incoherent |
+| Value | Character              |
+|-------|------------------------|
+| 0.5   | Focused, repetitive, safe |
+| 0.8   | Balanced — good default |
+| 1.0   | Full distribution, varied |
+| 1.2+  | Creative, occasionally incoherent |
 
 ---
 
@@ -201,13 +193,13 @@ model.load_state_dict(ckpt["model_state"])
 
 ## Requirements
 
-| Package | Version |
-|---|---|
-| Python | 3.10+ |
-| PyTorch | 2.0+ |
-| numpy | any recent |
+| Package    | Version   |
+|------------|-----------|
+| Python     | 3.10+     |
+| PyTorch    | 2.0+      |
+| numpy      | any recent |
 | matplotlib | any recent |
-| tiktoken | optional, for BPE tokenizer |
+| tiktoken   | optional, for BPE tokenizer |
 | flash-attn | optional, for FlashAttention kernel |
 
 ---
